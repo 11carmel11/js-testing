@@ -5,7 +5,7 @@ const {
   mostBlogs,
   mostLikes,
 } = require("../helpers/list_helper");
-const mockBlogs = require("./mockData");
+const mockBlogs = require("./mockDataBlogs");
 
 describe("dummy", () => {
   test("dummy should return 1", () => {
