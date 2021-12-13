@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Calc App E2E Testing</title>
+    <meta name="description" content="Calc App">
+    <meta name="author" content="Max Langerman">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<script src="./index.js"></script>
+
+<label for="a"></label>
+<input type="number" id="a" name="a" min="0">
+
+<label for="operator"></label>
+<select name="operator" id="operator">
+    <option value="add">+</option>
+    <option value="sub">-</option>
+    <option value="multiply">*</option>
+    <option value="divide">/</option>
+</select>
+
+<label for="b"></label>
+<input type="number" id="b" name="b" min="0">
+
+<button id="equals" type="button">=</button>
+
+<label for="result"></label>
+<input type="number" id="result" name="result" min="0" disabled>
+
+
+</body>
+</html>
