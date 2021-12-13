@@ -2,18 +2,20 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const log = require("./helpers/console");
-const Blog = require("./models/blog");
+// const Blog = require("./models/blog");
 
 const app = express();
 const blogsRouter = require("./routers/apiBlogRouter");
+const userRouter = require("./routers/apiUsersRouter");
 
 const mongoUrl =
-  process.env.NODE_ENV !== "test" ? process.env.DB : process.env.DB_TEST;
+  process.env.NODE_ENV === "test" ? process.env.DB : process.env.DB_TEST;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/blogs", blogsRouter);
+app.use("/api/users", userRouter);
 
 app.get("/", (req, res) => {
   res.send("hello");

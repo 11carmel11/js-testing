@@ -19,10 +19,9 @@ const mockInsertedBlogWithoutLikes = {
 beforeEach(async () => {
   await Blog.deleteMany({});
   await Blog.insertMany(mockData);
-  console.log("done");
 });
 
-describe("api testing", () => {
+describe("api blog testing", () => {
   test("server connects", async () => {
     const response = await api.get("/").expect(200);
     expect(response.text).toBe("hello");
@@ -87,6 +86,7 @@ describe("api testing", () => {
       .expect(200);
 
     expect(body).toEqual({ likes: 32 });
+
     const res = await api.get("/api/blogs").expect(200);
     const arrData = JSON.parse(res.body);
     arrData.forEach((blog) => {
