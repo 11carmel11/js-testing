@@ -4,6 +4,12 @@ const mongoose = require("mongoose");
 const mockData = require("./mockData");
 const Blog = require("../models/blog");
 const api = supertest(app);
+const mockInsertedBlog = {
+  title: "test title",
+  author: "test author",
+  url: "https://www.testurl.com",
+  likes: 100,
+};
 
 beforeEach(async () => {
   await Blog.deleteMany({});
@@ -33,6 +39,12 @@ describe("api testing", () => {
     JSON.parse(body).forEach((blog) => {
       expect(blog.id).toBeDefined();
     });
+  });
+
+  it("should be able to add blog", async () => {
+    await api.post("/api/blogs").send(mockInsertedBlog).expect(201);
+    const { body } = await api.get("/api/blogs").expect(200);
+    expect(JSON.parse(body)).toHaveLength(mockData.length + 1);
   });
 });
 
