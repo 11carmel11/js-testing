@@ -62,11 +62,22 @@ describe("api testing", () => {
   });
 
   it("should throw if url || title is not provided", async () => {
-    const withoutTitle = (withoutUrl = { ...mockInsertedBlog });
+    const withoutTitle = { ...mockInsertedBlog },
+      withoutUrl = { ...mockInsertedBlog };
     delete withoutTitle.title;
     delete withoutUrl.url;
     await api.post("/api/blogs").send(withoutTitle).expect(400);
     await api.post("/api/blogs").send(withoutUrl).expect(400);
+  });
+
+  it("should delete by _id", async () => {
+    const { text } = await api
+      .delete("/api/blogs/5a422a851b54a676234d17f7")
+      .expect(200);
+    expect(text).toBe('"deleted"');
+
+    const { body } = await api.get("/api/blogs").expect(200);
+    expect(JSON.parse(body)).toHaveLength(5);
   });
 });
 
