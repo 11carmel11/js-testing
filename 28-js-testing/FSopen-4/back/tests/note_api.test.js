@@ -10,6 +10,11 @@ const mockInsertedBlog = {
   url: "https://www.testurl.com",
   likes: 100,
 };
+const mockInsertedBlogWithoutLikes = {
+  title: "test title",
+  author: "test author",
+  url: "https://www.testurl.com",
+};
 
 beforeEach(async () => {
   await Blog.deleteMany({});
@@ -45,6 +50,15 @@ describe("api testing", () => {
     await api.post("/api/blogs").send(mockInsertedBlog).expect(201);
     const { body } = await api.get("/api/blogs").expect(200);
     expect(JSON.parse(body)).toHaveLength(mockData.length + 1);
+  });
+
+  it("should make default 0 likes if property not provided", async () => {
+    await api.post("/api/blogs").send(mockInsertedBlogWithoutLikes).expect(201);
+    let { body } = await api.get("/api/blogs").expect(200);
+    body = JSON.parse(body);
+    const last = body[body.length - 1];
+    expect(last.likes).toBeDefined();
+    expect(last.likes).toBe(0);
   });
 });
 
