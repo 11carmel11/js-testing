@@ -79,6 +79,20 @@ describe("api testing", () => {
     const { body } = await api.get("/api/blogs").expect(200);
     expect(JSON.parse(body)).toHaveLength(5);
   });
+
+  it("should update a property for given id", async () => {
+    const { body } = await api
+      .patch("/api/blogs/5a422a851b54a676234d17f7?property=likes")
+      .send({ updated: 32 })
+      .expect(200);
+
+    expect(body).toEqual({ likes: 32 });
+    const res = await api.get("/api/blogs").expect(200);
+    const arrData = JSON.parse(res.body);
+    arrData.forEach((blog) => {
+      if (blog._id === "5a422a851b54a676234d17f7") expect(blog.likes).toBe(32);
+    });
+  });
 });
 
 afterAll(() => {

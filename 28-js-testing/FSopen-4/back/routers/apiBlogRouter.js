@@ -24,4 +24,12 @@ router.delete("/:id", async (req, res) => {
   res.json("deleted");
 });
 
+router.patch("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { property } = req.query;
+  const { updated } = req.body;
+  await Blog.findByIdAndUpdate(id, { [property]: updated });
+  res.json({ [property]: updated });
+});
+
 module.exports = router;
