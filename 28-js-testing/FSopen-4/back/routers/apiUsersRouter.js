@@ -11,13 +11,20 @@ router.get("/", async (_req, res) => {
 
 router.post("/", async (req, res) => {
   const { name, username, password } = req.body;
-  const user = new User({
-    name,
-    username,
-    password: bcrypt.hashSync(password, salt),
-  });
-  await User.insertMany([user]);
-  res.status(201).json(user);
+  if (password.length < 3) {
+    return res.sendStatus(400);
+  }
+  try {
+    const user = new User({
+      name,
+      username,
+      password: bcrypt.hashSync(password, salt),
+    });
+    await User.insertMany([user]);
+    res.status(201).json(user);
+  } catch (error) {
+    res.sendStatus(400);
+  }
 });
 
 module.exports = router;

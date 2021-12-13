@@ -4,6 +4,17 @@ const mongoose = require("mongoose");
 const mockData = require("./mockDataUsers");
 const User = require("../models/user");
 const api = supertest(app);
+const userMockInsert = {
+  username: "mosheG",
+  password: "moshemoshe",
+  name: "moshe",
+};
+
+const badUserMockInsert = {
+  username: "mo",
+  password: "mo",
+  name: "moshe",
+};
 
 beforeEach(async () => {
   await User.deleteMany({});
@@ -24,14 +35,15 @@ describe("api users test", () => {
   });
 
   it("should be possible to add user", async () => {
-    const user = {
-      username: "mosheG",
-      password: "moshemoshe",
-      name: "moshe",
-    };
-    await api.post("/api/users").send(user).expect(201);
+    await api.post("/api/users").send(userMockInsert).expect(201);
     const { body } = await api.get("/api/users").expect(200);
     expect(body).toHaveLength(3);
+  });
+
+  it("should be impossible to break the user rules", async () => {
+    await api.post("/api/users").send(badUserMockInsert).expect(400);
+    const { body } = await api.get("/api/users").expect(200);
+    expect(body).toHaveLength(2);
   });
 });
 
