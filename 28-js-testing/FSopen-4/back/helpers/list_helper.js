@@ -40,4 +40,24 @@ const mostBlogs = (arr) => {
   }
   return final;
 };
-module.exports = { dummy, totalLikes, mostLiked, mostBlogs };
+
+const mostLikes = (arr) => {
+  const order = {};
+  let liked = {
+    author: "",
+    likes: 0,
+  };
+  arr.forEach((blog) => {
+    order[blog.author]
+      ? (order[blog.author] += blog.likes)
+      : (order[blog.author] = blog.likes);
+  });
+  for (const author in order) {
+    order[author] >= liked.likes
+      ? (liked = { likes: order[author], author })
+      : null;
+  }
+  return liked;
+};
+
+module.exports = { dummy, totalLikes, mostLiked, mostBlogs, mostLikes };

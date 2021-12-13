@@ -3,6 +3,7 @@ const {
   totalLikes,
   mostLiked,
   mostBlogs,
+  mostLikes,
 } = require("../helpers/list_helper");
 const mockBlogs = [
   {
@@ -85,5 +86,11 @@ describe("array of blogs - stats", () => {
     const mostBlogsAuth = mostBlogs(mockBlogs);
     expect(mostBlogsAuth.blogs).toBe(3);
     expect(mostBlogsAuth).toEqual({ author: "Robert C. Martin", blogs: 3 });
+  });
+
+  it("should return most liked author", () => {
+    const liked = mostLikes(mockBlogs);
+    expect(liked.likes).toBe(17);
+    expect(liked).toEqual({ author: "Edsger W. Dijkstra", likes: 17 });
   });
 });
