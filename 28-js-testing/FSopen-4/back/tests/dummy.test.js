@@ -1,4 +1,9 @@
-const { dummy, totalLikes, mostLiked } = require("../helpers/list_helper");
+const {
+  dummy,
+  totalLikes,
+  mostLiked,
+  mostBlogs,
+} = require("../helpers/list_helper");
 const mockBlogs = [
   {
     _id: "5a422a851b54a676234d17f7",
@@ -67,12 +72,18 @@ describe("array of blogs - stats", () => {
   });
 
   it("should return most liked blog", () => {
-    const mostLikedPost = mostLiked(mockBlogs);
-    expect(mostLikedPost.likes).toBe(12);
-    expect(mostLikedPost).toEqual({
+    const mostLikedBlog = mostLiked(mockBlogs);
+    expect(mostLikedBlog.likes).toBe(12);
+    expect(mostLikedBlog).toEqual({
       title: "Canonical string reduction",
       author: "Edsger W. Dijkstra",
       likes: 12,
     });
+  });
+
+  it("should return most blogging author", () => {
+    const mostBlogsAuth = mostBlogs(mockBlogs);
+    expect(mostBlogsAuth.blogs).toBe(3);
+    expect(mostBlogsAuth).toEqual({ author: "Robert C. Martin", blogs: 3 });
   });
 });
