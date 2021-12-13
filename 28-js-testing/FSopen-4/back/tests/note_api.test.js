@@ -60,6 +60,14 @@ describe("api testing", () => {
     expect(last.likes).toBeDefined();
     expect(last.likes).toBe(0);
   });
+
+  it("should throw if url || title is not provided", async () => {
+    const withoutTitle = (withoutUrl = { ...mockInsertedBlog });
+    delete withoutTitle.title;
+    delete withoutUrl.url;
+    await api.post("/api/blogs").send(withoutTitle).expect(400);
+    await api.post("/api/blogs").send(withoutUrl).expect(400);
+  });
 });
 
 afterAll(() => {
