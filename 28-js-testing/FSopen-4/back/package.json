@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --verbose ./tests",
     "dev": "nodemon index.js"
   },
   "keywords": [],
@@ -16,5 +16,8 @@
     "express": "^4.17.1",
     "mongoose": "^6.1.1",
     "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "jest": "^27.4.4"
   }
 }
