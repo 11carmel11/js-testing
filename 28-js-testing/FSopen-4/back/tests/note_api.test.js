@@ -18,8 +18,21 @@ describe("api testing", () => {
   });
 
   it("should return all blogs", async () => {
-    const response = await api.get("/api/blogs").expect(200);
-    expect(response.body).toEqual(mockData);
+    const { body } = await api.get("/api/blogs").expect(200);
+    expect(JSON.parse(body)).toEqual(
+      mockData.map((blog) => {
+        const newBlog = { ...blog, id: blog._id };
+        delete newBlog._id;
+        return newBlog;
+      })
+    );
+  });
+
+  it("should have id property", async () => {
+    const { body } = await api.get("/api/blogs").expect(200);
+    JSON.parse(body).forEach((blog) => {
+      expect(blog.id).toBeDefined();
+    });
   });
 });
 

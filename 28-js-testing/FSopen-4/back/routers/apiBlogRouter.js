@@ -3,7 +3,8 @@ const Blog = require("../models/blog");
 
 router.get("/", async (_req, res) => {
   const blogs = await Blog.find({});
-  res.json(blogs);
+
+  res.json(JSON.stringify(blogs));
 });
 
 router.post("/", async (req, res) => {
