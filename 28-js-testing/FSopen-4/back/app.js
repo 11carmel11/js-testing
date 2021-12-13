@@ -1,10 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-require("dotenv").config();
+const log = require("./helpers/console");
+const Blog = require("./models/blog");
 
 const app = express();
 const blogsRouter = require("./routers/apiBlogRouter");
+
+const mongoUrl =
+  process.env.NODE_ENV !== "test" ? process.env.DB : process.env.DB_TEST;
 
 app.use(cors());
 app.use(express.json());
@@ -15,10 +19,9 @@ app.get("/", (req, res) => {
   res.send("hello");
 });
 
-const mongoUrl = process.env.DB;
-
-mongoose.connect(mongoUrl).then(() => {
-  console.log("connected to mongo");
-});
-
+const connect = async () => {
+  await mongoose.connect(mongoUrl);
+  log("connected to mongo");
+};
+connect();
 module.exports = app;
