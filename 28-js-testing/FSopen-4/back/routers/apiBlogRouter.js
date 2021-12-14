@@ -26,14 +26,23 @@ router.post("/", async (req, res) => {
     await user.save();
     res.status(201).json(result);
   } catch (error) {
-    return res.sendStatus(498);
+    res.sendStatus(498);
   }
 });
 
-router.delete("/:id", async (req, res) => {
-  const { id } = req.params;
-  await Blog.findByIdAndRemove(id);
-  res.json("deleted");
+router.delete("/:blogId", async (req, res) => {
+  const { params, token } = req;
+  const { blogId } = params;
+  const blog = await Blog.findById(blogId);
+  try {
+    const user = JSON.parse(jwt.verify(token, secret));
+    if (blog.user.toString() !== user._id) return res.sendStatus(403);
+    await Blog.findByIdAndRemove(blogId);
+
+    res.json("deleted");
+  } catch (error) {
+    res.sendStatus(498);
+  }
 });
 
 router.patch("/:id", async (req, res) => {
