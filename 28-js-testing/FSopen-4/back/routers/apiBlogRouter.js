@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Blog = require("../models/blog");
 const User = require("../models/user");
+const isTokenValid = require("../helpers/tokenValidator");
 
 router.get("/", async (_req, res) => {
   const blogs = await Blog.find({}).populate("user", { blogs: 0 });
