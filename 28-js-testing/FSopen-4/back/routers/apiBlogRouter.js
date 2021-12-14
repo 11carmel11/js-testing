@@ -34,16 +34,20 @@ router.delete("/:blogId", async (req, res) => {
   if (!blogId) return res.sendStatus(400);
 
   const blog = await Blog.findById(blogId);
-  if (blog.user !== user._id) return res.sendStatus(403);
+
+  if (blog.user.toString() !== user.id) return res.sendStatus(401);
 
   await Blog.findByIdAndRemove(blogId);
   res.json("deleted");
 });
 
-router.patch("/:id", async (req, res) => {
-  const { id } = req.params;
-  const { body } = req;
-  await Blog.findByIdAndUpdate(id, body);
+router.patch("/:blogId", async (req, res) => {
+  const { blogId } = req.params;
+  const { body, user } = req;
+  const blog = await Blog.findById(blogId);
+
+  if (user.id !== blog.user.toString()) return res.sendStatus(401);
+  await Blog.findByIdAndUpdate(blogId, body);
   res.json(body);
 });
 
