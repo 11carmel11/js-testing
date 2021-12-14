@@ -1,0 +1,27 @@
+{
+  "name": "fsopen-4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "cross-env NODE_ENV=test jest /tests --verbose --runInBand --detectOpenHandles",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "carmel-cohen",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.1.1",
+    "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "jest": "^27.4.4",
+    "supertest": "^6.1.6"
+  }
+}
