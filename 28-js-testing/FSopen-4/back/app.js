@@ -9,7 +9,7 @@ const blogsRouter = require("./routers/apiBlogRouter");
 const userRouter = require("./routers/apiUsersRouter");
 
 const mongoUrl =
-  process.env.NODE_ENV === "test" ? process.env.DB : process.env.DB_TEST;
+  process.env.NODE_ENV !== "test" ? process.env.DB : process.env.DB_TEST;
 
 app.use(cors());
 app.use(express.json());
