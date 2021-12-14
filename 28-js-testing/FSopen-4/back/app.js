@@ -7,7 +7,8 @@ const log = require("./helpers/console");
 const app = express();
 const blogsRouter = require("./routers/apiBlogRouter");
 const userRouter = require("./routers/apiUsersRouter");
-const tokenValidator = require("./routers/middleware/tokenExtract");
+const tokenExtract = require("./routers/middleware/tokenExtract");
+const userExtract = require("./routers/middleware/userExtract");
 
 const mongoUrl =
   process.env.NODE_ENV !== "test" ? process.env.DB : process.env.DB_TEST;
@@ -16,7 +17,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(tokenValidator);
+app.use(tokenExtract);
+app.use(userExtract);
 
 app.use("/api/blogs", blogsRouter);
 app.use("/api/users", userRouter);
