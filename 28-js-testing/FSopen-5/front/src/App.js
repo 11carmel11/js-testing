@@ -33,7 +33,7 @@ const App = () => {
   return (
     <div>
       {user ? (
-        <BlogsList user={user} list={blogs} />
+        <BlogsList setter={setUser} list={blogs} />
       ) : (
         <Login setter={changeLoggedUser} />
       )}
