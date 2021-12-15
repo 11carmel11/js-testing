@@ -4,6 +4,7 @@ import like from "../services/like";
 import { BlogsSetterContext } from "../App";
 import { Notyf } from "notyf";
 import RemoveBtn from "./RemoveBtn";
+import PropTypes from "prop-types";
 
 const notyf = new Notyf({ dismissible: true });
 
@@ -54,3 +55,9 @@ export default function Blog({ blog, token, username }) {
     </StyledComp>
   );
 }
+
+Blog.prototype = {
+  blog: PropTypes.object.isRequired,
+  token: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+};
