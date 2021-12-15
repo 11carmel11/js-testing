@@ -23,7 +23,7 @@ export default function BlogsList({ list, userSetter, user }) {
     <div>
       <Header />
       {list.sort().map((blog) => (
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} token={user} />
       ))}
     </div>
   );

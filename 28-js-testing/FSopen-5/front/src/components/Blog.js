@@ -1,13 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
+import like from "../services/like";
+import { BlogsSetterContext } from "../App";
+import { Notyf } from "notyf";
+
+const notyf = new Notyf({ dismissible: true });
+
 const StyledComp = styled.div`
   border: 3px solid black;
   margin-bottom: 5px;
   display: table;
 `;
-const Blog = ({ blog }) => {
+const Blog = ({ blog, token }) => {
   const [shown, setShown] = useState(false);
   const changeShown = () => setShown(!shown);
+
+  const blogsSetter = useContext(BlogsSetterContext);
+
+  const addLike = async () => {
+    try {
+      const blogs = await like(blog.id, blog.likes, token);
+      blogsSetter(blogs);
+      notyf.success("blog has been liked!");
+    } catch (error) {}
+  };
 
   return (
     <StyledComp key={blog.id}>
@@ -24,7 +40,7 @@ const Blog = ({ blog }) => {
           </p>
           <p>author: {blog.author}</p>
           <p>
-            likes: {blog.likes} <button>like</button>
+            likes: {blog.likes} <button onClick={addLike}>👍</button>
           </p>
         </main>
       )}
