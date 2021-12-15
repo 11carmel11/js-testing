@@ -7,7 +7,13 @@ module.exports = async (req, _res, next) => {
   const { token } = req;
   try {
     const user = jwt.verify(token, secret);
-    const DBUser = await User.findById(user._id);
+    /** minor bug ->
+     * some users uses _id and some id,
+     * depends on when they where inserted to DB.
+     * older users uses _id.
+     * newer uses id, like wanted
+     */
+    const DBUser = await User.findById(user._id || user.id);
     req.user = DBUser;
   } catch (error) {
     req.user = "";
