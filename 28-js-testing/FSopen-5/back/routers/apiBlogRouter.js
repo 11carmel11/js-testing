@@ -6,7 +6,7 @@ const Blog = require("../models/blog");
 // const secret = process.env.SECRET;
 
 router.get("/", async (_req, res) => {
-  const blogs = await Blog.find({}).populate("user", { blogs: 0 });
+  const blogs = await Blog.find({}).populate("user", { blogs: 0, password: 0 });
 
   res.json(blogs);
 });

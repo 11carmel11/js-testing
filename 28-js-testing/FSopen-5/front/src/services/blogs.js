@@ -1,10 +1,10 @@
 import axios from "axios";
 const baseUrl = "/api/blogs";
 
-const getAll = () => {
-  const request = axios.get(baseUrl);
-  return request.then((response) => response.data);
-};
+export default async function getAll() {
+  const { data } = await axios.get(baseUrl);
+  return data;
+}
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll };
+// export default { getAll };
