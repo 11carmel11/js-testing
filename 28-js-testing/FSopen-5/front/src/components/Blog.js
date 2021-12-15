@@ -25,7 +25,9 @@ export default function Blog({ blog, token, username }) {
       const blogs = await like(blog.id, blog.likes, token);
       blogsSetter(blogs);
       notyf.success("blog has been liked!");
-    } catch (error) {}
+    } catch (error) {
+      notyf.error("Oops, something went wrong. Please try again");
+    }
   };
 
   return (

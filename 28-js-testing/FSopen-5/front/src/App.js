@@ -1,5 +1,4 @@
 import React, { useState, useEffect, createContext } from "react";
-// import { BrowserRouter, Route, Routes } from "react-router-dom";
 import BlogsList from "./components/BlogsList";
 import Login from "./components/Login";
 import getAll from "./services/getAll";
