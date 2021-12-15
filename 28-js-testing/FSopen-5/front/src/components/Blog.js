@@ -33,18 +33,13 @@ export default function Blog({ blog, token, username }) {
   return (
     <StyledComp key={blog.id}>
       <div>
-        title: <span>{blog.title}</span>
+        <p className="title">title: {blog.title}</p>
+        <p className="author">author: {blog.author}</p>
       </div>
       {shown && (
         <main>
-          <p>
-            url:{" "}
-            <a href={blog.url} target="_blank" rel="noreferrer">
-              {blog.url}
-            </a>
-          </p>
-          <p>author: {blog.author}</p>
-          <p>
+          <p className="url">url: {blog.url}</p>
+          <p className="likes">
             likes: {blog.likes} <button onClick={addLike}>👍</button>
           </p>
           {username === blog.user.username && (
@@ -60,6 +55,6 @@ export default function Blog({ blog, token, username }) {
 
 Blog.prototype = {
   blog: PropTypes.object.isRequired,
-  token: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
+  token: PropTypes.string,
+  username: PropTypes.string,
 };
