@@ -2,6 +2,7 @@ import { Notyf } from "notyf";
 import { useRef, useContext, useState } from "react";
 import { BlogsSetterContext } from "../App";
 import pushNewBlog from "../services/create";
+import logger from "../services/logger";
 import resetRefs from "../services/resetRefs";
 
 const notyf = new Notyf({ dismissible: true });
@@ -27,6 +28,7 @@ export default function Creator({ token }) {
       blogsSetter(newList);
       notyf.success(`your blog has been added!`);
     } catch (error) {
+      logger(error);
       notyf.error("Oops, it seems like something went wrong... ");
     }
   };
