@@ -3,6 +3,7 @@ import styled from "styled-components";
 import like from "../services/like";
 import { BlogsSetterContext } from "../App";
 import { Notyf } from "notyf";
+import RemoveBtn from "./RemoveBtn";
 
 const notyf = new Notyf({ dismissible: true });
 
@@ -11,7 +12,8 @@ const StyledComp = styled.div`
   margin-bottom: 5px;
   display: table;
 `;
-const Blog = ({ blog, token }) => {
+
+export default function Blog({ blog, token, username }) {
   const [shown, setShown] = useState(false);
   const changeShown = () => setShown(!shown);
 
@@ -42,12 +44,13 @@ const Blog = ({ blog, token }) => {
           <p>
             likes: {blog.likes} <button onClick={addLike}>👍</button>
           </p>
+          {username === blog.user.username && (
+            <RemoveBtn blog={blog} token={token} />
+          )}
         </main>
       )}
       <button onClick={changeShown}>view {shown ? "less" : "more"}</button>
       <br />
     </StyledComp>
   );
-};
-
-export default Blog;
+}
