@@ -1,5 +1,5 @@
 import { Notyf } from "notyf";
-import { useRef, useContext } from "react";
+import { useRef, useContext, useState } from "react";
 import { BlogsSetterContext } from "../App";
 import pushNewBlog from "../services/create";
 import resetRefs from "../services/resetRefs";
@@ -8,6 +8,9 @@ const notyf = new Notyf({ dismissible: true });
 
 export default function Creator({ token }) {
   const blogsSetter = useContext(BlogsSetterContext);
+
+  const [toggle, setToggle] = useState(false);
+  const changeToggle = () => setToggle(!toggle);
 
   const titleRef = useRef(null);
   const authorRef = useRef(null);
@@ -28,7 +31,9 @@ export default function Creator({ token }) {
     }
   };
 
-  return (
+  return !toggle ? (
+    <button onClick={changeToggle}>want to add blog?</button>
+  ) : (
     <div>
       <h3>create blog:</h3>
       <div>
@@ -55,6 +60,7 @@ export default function Creator({ token }) {
       </div>
       <div>
         <button onClick={createBlog}>create blog</button>
+        <button onClick={changeToggle}>cancel</button>
       </div>
       <br />
     </div>

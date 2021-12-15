@@ -5,5 +5,8 @@ export default function logger(error) {
   for (let i = 0; i < keys.length; i++) {
     obj[keys[i]] = values[i];
   }
+  console.group("logger");
   console.log(obj);
+  console.log(new Date());
+  console.groupEnd();
 }
