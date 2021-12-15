@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import React, { useRef } from "react";
 
 export default function Login({ setter }) {
   const passwordRef = useRef(null);

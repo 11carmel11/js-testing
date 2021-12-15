@@ -55,6 +55,6 @@ export default function Blog({ blog, token, username }) {
 
 Blog.prototype = {
   blog: PropTypes.object.isRequired,
-  token: PropTypes.string,
-  username: PropTypes.string,
+  token: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
 };

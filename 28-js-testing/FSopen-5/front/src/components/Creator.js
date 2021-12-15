@@ -1,5 +1,5 @@
+import React, { useRef, useContext, useState } from "react";
 import { Notyf } from "notyf";
-import { useRef, useContext, useState } from "react";
 import { BlogsSetterContext } from "../App";
 import pushNewBlog from "../services/create";
 import logger from "../services/logger";
@@ -26,7 +26,7 @@ export default function Creator({ token }) {
       const newList = await pushNewBlog(title, author, url, token);
       resetRefs(titleRef, authorRef, urlRef);
       blogsSetter(newList);
-      notyf.success(`your blog has been added!`);
+      notyf.success("your blog has been added!");
     } catch (error) {
       logger(error);
       notyf.error("Oops, it seems like something went wrong... ");
