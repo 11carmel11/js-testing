@@ -1,3 +1,4 @@
+import sortBlogsByLikes from "../services/sortBlogsByLikes";
 import Blog from "./Blog";
 import Creator from "./Creator";
 import Logout from "./Logout";
@@ -22,7 +23,7 @@ export default function BlogsList({ list, userSetter, user }) {
   return (
     <div>
       <Header />
-      {list.sort().map((blog) => (
+      {list.sort(sortBlogsByLikes).map((blog) => (
         <Blog key={blog.id} blog={blog} token={user} />
       ))}
     </div>
