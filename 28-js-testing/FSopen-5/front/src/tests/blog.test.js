@@ -50,14 +50,21 @@ describe("<Blog/> Component", () => {
   });
 
   it("should show all details onClick on button", () => {
-    const viewBtn = component.queryByText("view more");
-    const hideBtn = component.queryByText("view less");
-
+    const viewBtn = component.container.querySelector(".view-btn");
     expect(viewBtn).toBeDefined();
-    expect(hideBtn).toBeNull();
 
     fireEvent.click(viewBtn);
 
-    expect(hideBtn).toBeDefined();
+    const url = component.container.querySelector(".url");
+    expect(url).toBeDefined();
+  });
+
+  it("should add like when clicking", () => {
+    const likeBtn = component.queryByText("👍");
+    console.log(likeBtn);
+    expect(likeBtn).toBeDefined();
+
+    // component.debug();
+    // const numOfLikes = component.queryByText("likes: 100");
   });
 });

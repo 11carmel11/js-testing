@@ -47,7 +47,9 @@ export default function Blog({ blog, token, username }) {
           )}
         </main>
       )}
-      <button onClick={changeShown}>view {shown ? "less" : "more"}</button>
+      <button className="view-btn" onClick={changeShown}>
+        view {shown ? "less" : "more"}
+      </button>
       <br />
     </StyledComp>
   );
