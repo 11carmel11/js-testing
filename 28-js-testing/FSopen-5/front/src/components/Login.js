@@ -1,7 +1,6 @@
 import { useRef } from "react";
 
 export default function Login({ setter }) {
-  if (window.location.pathname !== "/") window.location.href = "/";
   const passwordRef = useRef(null);
   const usernameRef = useRef(null);
   const login = () => {
