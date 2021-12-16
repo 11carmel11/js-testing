@@ -1,12 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import like from "../services/like";
-import { BlogsSetterContext } from "../App";
-import { Notyf } from "notyf";
 import RemoveBtn from "./RemoveBtn";
 import PropTypes from "prop-types";
-
-const notyf = new Notyf({ dismissible: true });
 
 const StyledComp = styled.div`
   border: 3px solid black;
@@ -14,21 +9,9 @@ const StyledComp = styled.div`
   display: table;
 `;
 
-export default function Blog({ blog, token, username }) {
+export default function Blog({ blog, username, likeHandler, remover }) {
   const [shown, setShown] = useState(false);
   const changeShown = () => setShown(!shown);
-
-  const blogsSetter = useContext(BlogsSetterContext);
-
-  const addLike = async () => {
-    try {
-      const blogs = await like(blog.id, blog.likes, token);
-      blogsSetter(blogs);
-      notyf.success("blog has been liked!");
-    } catch (error) {
-      notyf.error("Oops, something went wrong. Please try again");
-    }
-  };
 
   return (
     <StyledComp key={blog.id}>
@@ -40,10 +23,22 @@ export default function Blog({ blog, token, username }) {
         <main>
           <p className="url">url: {blog.url}</p>
           <p className="likes">
-            likes: {blog.likes} <button onClick={addLike}>👍</button>
+            likes: {blog.likes}{" "}
+            <button
+              className="like-btn"
+              onClick={() => {
+                likeHandler(blog);
+              }}
+            >
+              👍
+            </button>
           </p>
           {username === blog.user.username && (
-            <RemoveBtn blog={blog} token={token} />
+            <RemoveBtn
+              remover={() => {
+                remover(blog);
+              }}
+            />
           )}
         </main>
       )}

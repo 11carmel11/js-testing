@@ -1,6 +1,11 @@
 import React from "react";
 import "@testing-library/jest-dom/extend-expect";
-import { render, fireEvent } from "@testing-library/react";
+import {
+  render,
+  fireEvent,
+  waitFor,
+  findByTestId,
+} from "@testing-library/react";
 import Blog from "../components/Blog";
 
 const mock = {
@@ -55,16 +60,33 @@ describe("<Blog/> Component", () => {
 
     fireEvent.click(viewBtn);
 
-    const url = component.container.querySelector(".url");
-    expect(url).toBeDefined();
+    const url = component.container.querySelectorAll(".url");
+    expect(url).toHaveLength(1);
   });
 
-  it("should add like when clicking", () => {
-    const likeBtn = component.queryByText("👍");
-    console.log(likeBtn);
-    expect(likeBtn).toBeDefined();
+  it("should add like when clicking", async () => {
+    const viewBtn = component.container.querySelector(".view-btn");
+    fireEvent.click(viewBtn);
+    // let likesElm = component.container.querySelector(".likes");
 
-    // component.debug();
-    // const numOfLikes = component.queryByText("likes: 100");
+    const likeBtn = component.container.querySelector(".like-btn");
+    fireEvent.click(likeBtn);
+
+    await findByTestId();
+
+    await waitFor(() => {
+      expect(
+        document.querySelectorAll(".notyf__toast--dismissible")
+      ).toHaveLength(1);
+    });
+
+    // await waitForElementToBeRemoved(() => {
+    //   expect(likesElm).toHaveTextContent("likes: 101 👍");
+    // }, {interval:});
+    // likesElm = component.container.querySelector(".likes");
+
+    expect(component.container.querySelector(".likes")).toHaveTextContent(
+      "likes: 101 👍"
+    );
   });
 });

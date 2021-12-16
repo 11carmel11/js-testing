@@ -1,8 +1,8 @@
 import React from "react";
-export default function Logout({ children, logoutHandler }) {
+export default function Logout({ logoutHandler }) {
   return (
     <div>
-      <button onClick={logoutHandler}>{children}</button>
+      <button onClick={logoutHandler}>click to logout</button>
       <p></p>
     </div>
   );

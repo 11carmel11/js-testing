@@ -39,10 +39,7 @@ router.delete("/:blogId", async (req, res) => {
 
 router.patch("/:blogId", async (req, res) => {
   const { blogId } = req.params;
-  const { body, user } = req;
-  const blog = await Blog.findById(blogId);
-
-  if (user.id !== blog.user.toString()) return res.sendStatus(401);
+  const { body } = req;
   await Blog.findByIdAndUpdate(blogId, body);
   res.json(body);
 });

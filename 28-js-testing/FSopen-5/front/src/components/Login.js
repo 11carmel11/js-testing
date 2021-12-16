@@ -3,9 +3,11 @@ import React, { useRef } from "react";
 export default function Login({ setter }) {
   const passwordRef = useRef(null);
   const usernameRef = useRef(null);
+
   const login = () => {
     setter(usernameRef.current.value, passwordRef.current.value);
   };
+
   return (
     <div>
       <h3>login here</h3>

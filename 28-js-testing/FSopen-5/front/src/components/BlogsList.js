@@ -1,23 +1,24 @@
 import React from "react";
-import sortBlogsByLikes from "../services/sortBlogsByLikes";
 import Blog from "./Blog";
 import Creator from "./Creator";
 import Logout from "./Logout";
+import sortBlogsByLikes from "../services/sortBlogsByLikes";
 
-export default function BlogsList({ list, userSetter, user }) {
+export default function BlogsList({
+  list,
+  likeHandler,
+  remover,
+  creator,
+  logoutHandler,
+}) {
   const username = localStorage.getItem("username");
-
-  const logout = () => {
-    localStorage.removeItem("username");
-    userSetter("");
-  };
 
   const Header = () => (
     <div>
       <h2>blogs:</h2>
       <h3>{username} is logged in</h3>
-      <Logout logoutHandler={logout}>click to logout</Logout>
-      <Creator token={user} />
+      <Logout logoutHandler={logoutHandler} />
+      <Creator createHandler={creator} />
     </div>
   );
 
@@ -25,7 +26,13 @@ export default function BlogsList({ list, userSetter, user }) {
     <div>
       <Header />
       {list.sort(sortBlogsByLikes).map((blog) => (
-        <Blog key={blog.id} blog={blog} username={username} token={user} />
+        <Blog
+          key={blog.id}
+          blog={blog}
+          username={username}
+          likeHandler={likeHandler}
+          remover={remover}
+        />
       ))}
     </div>
   );

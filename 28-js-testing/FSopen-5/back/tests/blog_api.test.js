@@ -63,6 +63,7 @@ describe("api blog testing", () => {
       mockData.map((blog) => {
         const newBlog = { ...blog, id: blog._id };
         delete newBlog._id;
+        delete newBlog.__v;
         return newBlog;
       })
     );
@@ -144,7 +145,6 @@ describe("api blog testing", () => {
     const update = { likes: 32 };
     const { body } = await api
       .patch(`/api/blogs/${response.body.id}`)
-      .set(mock.tokenHeader)
       .send(update)
       .expect(200);
 
