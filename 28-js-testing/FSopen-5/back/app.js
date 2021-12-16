@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const log = require("./helpers/console");
-// const Blog = require("./models/blog");
 
 const app = express();
 const blogsRouter = require("./routers/apiBlogRouter");
@@ -22,6 +21,11 @@ app.use(userExtract);
 
 app.use("/api/blogs", blogsRouter);
 app.use("/api/users", userRouter);
+
+if (process.env.NODE_ENV === "test") {
+  const testRouter = require("./routers/testResetRouter");
+  app.use("/api/reset", testRouter);
+}
 
 app.get("/", (req, res) => {
   res.send("hello");
