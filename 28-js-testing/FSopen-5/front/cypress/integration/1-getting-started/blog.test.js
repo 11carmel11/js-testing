@@ -7,6 +7,16 @@ const mock = {
   title: "test title",
   author: "test author",
   url: "test url",
+  blog2: {
+    title: "test title2",
+    author: "test author2",
+    url: "test url2",
+  },
+  blog3: {
+    title: "test title3",
+    author: "test author3",
+    url: "test url3",
+  },
 };
 
 describe("blogs", function () {
@@ -32,5 +42,25 @@ describe("blogs", function () {
     cy.contains("view more").click();
     cy.contains("remove").click();
     cy.get(".notyf__toast--success");
+  });
+
+  it("should sort blogs by likes", function () {
+    cy.blog(mock.blog2);
+    cy.blog(mock.blog3);
+    cy.contains(`title: ${mock.blog2.title}`)
+      .parent()
+      .parent()
+      .as("blog2")
+      .contains("view more")
+      .click()
+      .parent()
+      .contains("👍")
+      .click();
+    cy.contains("likes: 1");
+    cy.get("@blog2").contains("👍").click();
+    cy.contains("likes: 2");
+    cy.get(".sc-bdvvtL.hEcUoY").then((list) => {
+      cy.wrap(list[0]).contains("likes: 2");
+    });
   });
 });
