@@ -9,22 +9,24 @@ const mock = {
   url: "test url",
 };
 
-describe("blog tests", function () {
+describe("blogs", function () {
   beforeEach(() => {
     cy.init(mock);
     cy.login(mock.username, mock.password);
   });
-  it("should let a valid user add blog", function () {
-    cy.contains("want to add blog?").click();
 
-    cy.get("#title").type(mock.title);
-    cy.get("#author").type(mock.author);
-    cy.get("#url").type(mock.url);
-
-    cy.get("#create-btn").click();
+  it("should let a user add blog", function () {
+    cy.blog(mock);
 
     cy.get(".notyf__toast--success");
 
     cy.contains("view more");
+  });
+
+  it("should let a user like blogs", function () {
+    cy.blog(mock);
+    cy.contains("view more").click();
+    cy.contains("👍").click();
+    cy.contains("likes: 1");
   });
 });

@@ -26,6 +26,17 @@ Cypress.Commands.add("init", (body) => {
 
   cy.visit("http://localhost:3000");
 });
+
+Cypress.Commands.add("blog", (body) => {
+  cy.contains("want to add blog?").click();
+
+  cy.get("#title").type(body.title);
+  cy.get("#author").type(body.author);
+  cy.get("#url").type(body.url);
+
+  cy.get("#create-btn").click();
+});
+
 //
 //
 // -- This is a child command --
