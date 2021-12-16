@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import BlogsList from "./components/BlogsList";
 import Login from "./components/Login";
 import deleteBlog from "./services/deleteBlog";
-import resetRefs from "./services/resetRefs";
 import pushNewBlog from "./services/create";
 import logger from "./services/logger";
 import getAll from "./services/getAll";
@@ -53,14 +52,10 @@ export const App = () => {
     }
   };
 
-  const createBlog = async (TRef, ARef, URef) => {
+  const createBlog = async (title, author, url) => {
     try {
-      const title = TRef.current.value;
-      const author = ARef.current.value;
-      const url = URef.current.value;
       if (!url || !author || !url) return;
       const newList = await pushNewBlog(title, author, url, user);
-      resetRefs(TRef, ARef, URef);
       setBlogs(newList);
       notyf.success("your blog has been added!");
     } catch (error) {

@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import resetRefs from "../services/resetRefs";
 
 export default function Creator({ createHandler }) {
   const [toggle, setToggle] = useState(false);
@@ -37,8 +38,14 @@ export default function Creator({ createHandler }) {
       </div>
       <div>
         <button
+          id="create-btn"
           onClick={() => {
-            createHandler(titleRef, authorRef, urlRef);
+            createHandler(
+              titleRef.current.value,
+              authorRef.current.value,
+              urlRef.current.value
+            );
+            resetRefs(titleRef, authorRef, urlRef);
           }}
         >
           create blog

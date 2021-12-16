@@ -2,6 +2,7 @@ import React from "react";
 import "@testing-library/jest-dom/extend-expect";
 import { render, fireEvent } from "@testing-library/react";
 import Blog from "../components/Blog";
+import BlogsList from "../components/BlogsList";
 
 const mock = {
   fullBlog: {
@@ -26,9 +27,6 @@ const mock = {
 };
 
 describe("<Blog/> Component", () => {
-  //#region setup
-  //#endregion
-
   it("should render generic blog", () => {
     //#region setup
     const mockLiker = jest.fn();
@@ -103,5 +101,64 @@ describe("<Blog/> Component", () => {
 
       expect(mockLiker.mock.calls).toHaveLength(i);
     }
+  });
+});
+
+describe("<BlogList/> Component", () => {
+  it("should add be able to add new blog", () => {
+    //#region setup
+    const mockLiker = jest.fn();
+    const mockRemover = jest.fn();
+    const mockLogout = jest.fn();
+    const mockCreator = jest.fn((title, author, url) => ({
+      title,
+      author,
+      url,
+    }));
+    const component = render(
+      <BlogsList
+        list={[mock.fullBlog]}
+        likeHandler={mockLiker}
+        remover={mockRemover}
+        creator={mockCreator}
+        logoutHandler={mockLogout}
+      />
+    );
+    //#endregion
+
+    const addBtn = component.getByText("want to add blog?");
+    expect(addBtn).not.toEqual(null);
+
+    fireEvent.click(addBtn);
+
+    const titleInput = component.container.querySelector("#title");
+    const authorInput = component.container.querySelector("#author");
+    const urlInput = component.container.querySelector("#url");
+    expect(!!titleInput && !!authorInput && !!urlInput).not.toBeNull();
+
+    const { title, author, url } = mock.fullBlog;
+
+    fireEvent.change(titleInput, {
+      target: { value: title },
+    });
+    fireEvent.change(authorInput, {
+      target: { value: author },
+    });
+    fireEvent.change(urlInput, {
+      target: { value: url },
+    });
+
+    const createBtn = component.container.querySelector("#create-btn");
+
+    expect(createBtn).not.toEqual(null);
+
+    fireEvent.click(createBtn);
+
+    expect(mockCreator.mock.calls).toHaveLength(1);
+    expect(mockCreator.mock.results[0].value).toEqual({
+      title,
+      author,
+      url,
+    });
   });
 });
