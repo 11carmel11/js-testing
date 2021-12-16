@@ -15,6 +15,17 @@ Cypress.Commands.add("login", (username, password) => {
   cy.get("#password").type(password);
   cy.contains("login!").click();
 });
+
+Cypress.Commands.add("init", (body) => {
+  cy.request("PUT", "http://localhost:3003/api/reset");
+  cy.request({
+    url: "http://localhost:3003/api/users",
+    method: "POST",
+    body,
+  });
+
+  cy.visit("http://localhost:3000");
+});
 //
 //
 // -- This is a child command --

@@ -8,14 +8,7 @@ const mock = {
 
 describe("login", function () {
   beforeEach(() => {
-    cy.request("PUT", "http://localhost:3003/api/reset");
-    cy.request({
-      url: "http://localhost:3003/api/users",
-      method: "POST",
-      body: mock,
-    });
-
-    cy.visit("http://localhost:3000");
+    cy.init(mock);
   });
 
   it("should get to login-page by default", function () {
