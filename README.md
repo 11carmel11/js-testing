@@ -1,6 +1,6 @@
 # Getting Started with JS testing
 
-### learning JS testing from [full stack open](https://fullstackopen.com/en/about)
+### learning JS testing from [full stack open](https://fullstackopen.com/en/about/#:~:text=Part-,4,-Testing%20Express%20servers)
 
 ## _`part 4` - back_
 
